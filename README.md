@@ -26,7 +26,7 @@ Before running this pipeline, ensure that the following programs are installed:
 ### 1️⃣ Download the pipeline
 Clone this repository:
 ```bash
-git clone https://github.com/cykim-saihst/rnaseq-pipeline.git
+git clone https://github.com/cxyzkim/rnaseq-pipeline.git
 ```
 
 ### 2️⃣ Set up your working directory
@@ -69,7 +69,7 @@ This will:
 
 ## 📌 Example Workflow
 ```bash
-git clone https://github.com/cykim-saihst/rnaseq-pipeline.git
+git clone https://github.com/cxyzkim/rnaseq-pipeline.git
 
 mkdir working_space
 cd working_space
@@ -87,4 +87,4 @@ bash command/main_bowtie2.sh
 
 ## 👨‍💻 Author
 Developed by **[Chaeyeon Kim]**  
-GitHub: [cykim-saihst](https://github.com/cykim-saihst/)
+GitHub: [cxyzkim](https://github.com/cxyzkim/)
