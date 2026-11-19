@@ -19,6 +19,11 @@ Before running this pipeline, ensure that the following programs are installed:
 - **FastQC** & **MultiQC** (for quality control)
 - **R(dplyr)**: Required for merging counts (`merge_output.R`)
 
+All of these can be installed with the provided conda environment:
+```bash
+conda env create -f RNAseq.yaml && conda activate RNAseq
+```
+
 ---
 
 ## 🚀 How to Use 
@@ -38,10 +43,16 @@ cd working_space
 mkdir input ref
 mv your_fastq_files input/
 mv your_reference_files ref/
-cp -r ../RNAseq_pipeline/command . 
+cp -r ../rnaseq-pipeline/command . 
 ```
 📌 **This ensures that all input and reference files are placed in the correct directories.**  
-📌 **The scripts from `RNAseq_pipeline/command` are copied to the working directory for execution.**
+📌 **The scripts from `rnaseq-pipeline/command` are copied to the working directory for execution.**
+
+Expected file names:
+- FASTQ: `input/<sample_name>_1.fq.gz` and `input/<sample_name>_2.fq.gz` (paired-end)
+- Reference: `ref/<reference>.fa` (genome FASTA) and `ref/<reference>.gtf.gz` (gzipped GTF), e.g. `ref/mm10.fa`, `ref/mm10.gtf.gz`
+- `<reference>` must start with `mm` (mouse) or `hg` (human)
+- The Bowtie2 index (`ref/<reference>.*.bt2`) is built automatically on the first run if missing
 
 ### 3️⃣ Prepare your metadata file
 Create a sample metadata file inside the `input/` directory:
@@ -57,6 +68,8 @@ To start the RNAseq analysis, execute:
 ```bash
 bash command/main_bowtie2.sh
 ```
+The script asks for the metadata file name interactively. Enter only the file name inside `input/` (e.g. `input_file.txt`, not `input/input_file.txt`).
+
 This will:
 1. Check for required files
 2. Create necessary directories
@@ -65,23 +78,13 @@ This will:
 5. Count mapped reads using featureCounts
 6. Merge final results into a single CSV file
 
----
+### 5️⃣ Outputs
+- `output/<sample_name>_counts.csv`: read counts per gene for each sample
+- `output/raw_counts.csv`: merged count table (genes × samples), inner join on gene ID
+- `work/<sample_name>/`: intermediate BAM files and featureCounts output
+- `work/<sample_name>/QC/`: FastQC and MultiQC reports
 
-## 📌 Example Workflow
-```bash
-git clone https://github.com/cxyzkim/rnaseq-pipeline.git
-
-mkdir working_space
-cd working_space
-
-mkdir input ref
-mv your_fastq_files input/
-mv your_reference_files ref/
-cp -r ../RNAseq_pipeline/command . 
-
-echo -e "sample1 5 mm10\nsample2 3 hg38" > input/input_file.txt
-bash command/main_bowtie2.sh
-```
+📌 The merge step (`merge_output.R`) expects at least two samples in the metadata file.
 
 ---
 
