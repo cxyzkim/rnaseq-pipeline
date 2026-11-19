@@ -26,7 +26,7 @@ Before running this pipeline, ensure that the following programs are installed:
 ### 1️⃣ Download the pipeline
 Clone this repository:
 ```bash
-git clone https://github.com/cykim-saihst/RNAseq_pipeline.git
+git clone https://github.com/cykim-saihst/rnaseq-pipeline.git
 ```
 
 ### 2️⃣ Set up your working directory
@@ -69,7 +69,7 @@ This will:
 
 ## 📌 Example Workflow
 ```bash
-git clone https://github.com/cykim-saihst/RNAseq_pipeline.git
+git clone https://github.com/cykim-saihst/rnaseq-pipeline.git
 
 mkdir working_space
 cd working_space
